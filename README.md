@@ -14,3 +14,5 @@ SCREENSHOTS
 DEPENDENCIES<br>
 all you need is a web browser to run it<br>
 opens immediately and can be used upon opening.
+
+his project is licensed under the [Creative Commons] License

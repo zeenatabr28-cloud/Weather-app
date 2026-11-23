@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather</title>
+  <style>
+    body{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  background-image: linear-gradient(to right, #ffeecc, #ffb0a3);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weatherform{
+  margin: 100px;
+}
+
+.city{
+  padding: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  border: 3px solid #46425e;
+  border-radius: 10px;
+  margin: 10px;
+  width: 300px;
+  color: #46425e;
+}
+
+button[type="submit"]{
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 2rem;
+  background-color: #ffeecc;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px 0px #ffb0a3;
+  color: #46425e;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover{
+  background-color: #ffb0a3;
+  box-shadow: 5px 5px 15px 0px #ffeecc;
+}
+
+.card{
+  background-image: linear-gradient(to bottom, #00b9be, #15788c);
+  padding: 50px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50px;
+  box-shadow: 5px 5px 15px 0px #46425e;
+}
+
+h1{
+  font-family: fantasy;
+  font-size: 3rem;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #ffeecc;
+}
+
+p{
+  font-size: 1.5rem;
+  margin: 5px 0;
+  color: #46425e;
+}
+
+.tempdisplay{
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffeecc;
+  margin-bottom: 25px;
+}
+
+.humidity{
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.description{
+  font-style: italic;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.emote{
+  margin: 0;
+
+}
+
+.error{
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffeecc;
+}
+
+  </style>
+</head>
+<body>
+  <form class="weatherform">
+    <input type="text" class="city" placeholder="Enter City">
+    <button type="submit">Search</button>
+  </form>
+
+  <div class="card" style="display:none">
+  </div>
+
+  <script>
+    const weatherform = document.querySelector(".weatherform");
+    const cityInput = document.querySelector(".city");
+    const card = document.querySelector(".card");
+    const key = "9b7c0413e3d12cb479dfdb52c9a54dcc";
+
+    weatherform.addEventListener("submit", async event => {
+
+      event.preventDefault();
+
+      const city = cityInput.value;
+
+      if(city){
+        try{
+          const weatherData = await getWeatherData(city);
+          displayWeatherInfo(weatherData);
+        }
+        catch(error){
+          console.error(error);
+          displayError(error);
+        }
+      }
+      else{
+        displayError("City not found");
+      }
+    });
+
+    async function getWeatherData(city) {
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}`;
+
+      const response = await fetch(apiUrl);
+
+      if(!response.ok){
+        throw new Error("City Not found");
+      }
+
+      return await response.json();
+    }
+
+    function displayWeatherInfo(data){
+      const 
+    }
+
+    function getWeatherEmote(weatherid){
+
+    }
+
+    function displayError(message){
+      const errorDisplay = document.createElement("p");
+      errorDisplay.textContent = message;
+      errorDisplay.classList.add("error");
+
+      card.textContent = "";
+      card.style.display = "flex";
+      card.appendChild(errorDisplay);
+    }
+  </script>
+</body>
+</html>
